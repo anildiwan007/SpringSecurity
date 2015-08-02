@@ -36,6 +36,10 @@ gulp.task('minify-js', function() {
 gulp.task('copy-bower-components', function () {
   gulp.src('./app/bower_components/angular/angular.js')
     .pipe(gulp.dest('./js'));
+  
+  gulp.src('./app/bower_components/angular-route/angular-route.js')
+  .pipe(gulp.dest('./js'));
+  
   gulp.src('./app/bower_components/bootstrap/dist/css/bootstrap.css')
   .pipe(gulp.dest('./css'));
 });
