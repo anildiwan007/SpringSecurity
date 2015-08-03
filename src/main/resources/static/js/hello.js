@@ -16,7 +16,7 @@
 		})
 		.otherwise ('/');
 		
-		$httpProvider.defaults.header.common ["X-Requested-With"] = 'XMLHttpRequest';
+		$httpProvider.defaults.header.common["X-Requested-With"] = 'XMLHttpRequest';
 	}]);
 	
 	
@@ -48,10 +48,33 @@
 				callback && callback ();
 			});
 			
+		}
+		authenticate ();
+		$scope.credentials = {};
+		$scope.login = function () {
+			authentiate ($scope.credentials, function () {
+				if (rootScope.authenticated) {
+					$location.path ("/");
+					$scope.error =false;
+				} else {
+					$location.path("/login");
+					$scope.error = true;
+				}
+				
+			});
 		};
 		
+		$scope.logout = function() {
+			  $http.post('logout', {}).success(function() {
+			    $rootScope.authenticated = false;
+			    $location.path("/");
+			  }).error(function(data) {
+			    $rootScope.authenticated = false;
+			  });
+			}
+		
 	}]);
 		
 		
-	}]);
+	
 })();
